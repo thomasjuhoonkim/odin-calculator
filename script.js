@@ -58,7 +58,6 @@ function appendPoint() {
 
 function deleteNumber() {
   // if exponential characters exist, remove them in one delete click
-  console.log(typeof currentOperationScreen.textContent.toString().slice(-2));
   if (currentOperationScreen.textContent.toString().slice(-2) === "e+") {
     currentOperationScreen.textContent = currentOperationScreen.textContent
       .toString()
