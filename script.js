@@ -30,6 +30,7 @@ operatorButtons.forEach((button) => {
 });
 
 function appendNumber(number) {
+  if (currentOperationScreen.textContent === "") secondOperandMemory = "";
   if (currentOperationScreen.textContent === "0" || shouldResetScreen)
     resetScreen();
   currentOperationScreen.textContent += number;
@@ -77,7 +78,7 @@ function deleteNumber() {
 }
 
 function setOperation(operator) {
-  if (currentOperation !== null) evaluate();
+  if (currentOperation !== null && secondOperandMemory !== "") evaluate();
   firstOperand = currentOperationScreen.textContent;
   currentOperation = operator;
   lastOperationScreen.textContent = `${firstOperand} ${currentOperation}`;
