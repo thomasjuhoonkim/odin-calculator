@@ -36,6 +36,8 @@ body {
   line-height: 1.6;
   /* footer support */
   margin-bottom: 100px;
+  /* disable zoom */
+  touch-action: pan-y;
 }
 
 button {
