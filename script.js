@@ -1,5 +1,6 @@
 let firstOperand = "";
 let secondOperand = "";
+let secondOperandMemory = "";
 let currentOperation = null;
 let shouldResetScreen = false;
 
@@ -75,12 +76,20 @@ function evaluate() {
     alert("You can't divide by 0!");
     return;
   }
-  secondOperand = currentOperationScreen.textContent;
+  // load secondOperand for recursive calculations
+  if (
+    currentOperation !== null &&
+    lastOperationScreen.textContent.includes("=")
+  )
+    secondOperand = secondOperandMemory;
+  else secondOperand = currentOperationScreen.textContent;
   currentOperationScreen.textContent = roundResult(
     operate(currentOperation, firstOperand, secondOperand)
   );
   lastOperationScreen.textContent = `${firstOperand} ${currentOperation} ${secondOperand} =`;
-  currentOperation = null;
+  // remember second operator for recursive operations
+  firstOperand = currentOperationScreen.textContent;
+  secondOperandMemory = secondOperand;
 }
 
 function roundResult(number) {
@@ -127,6 +136,7 @@ function handleKeyboardInput(e) {
   if (e.key === "=" || e.key === "Enter") evaluate();
   if (e.key === "Backspace") deleteNumber();
   if (e.key === "Escape") clear();
+  // "x" is sometimes typed for multiplication
   if (
     e.key === "+" ||
     e.key === "-" ||
@@ -140,6 +150,7 @@ function handleKeyboardInput(e) {
 function convertOperator(keyboardOperator) {
   if (keyboardOperator === "+") return "+";
   if (keyboardOperator === "-") return "-";
+  // parse "x" for multiplication
   if (keyboardOperator === "*" || keyboardOperator === "x") return "×";
   if (keyboardOperator === "/") return "+";
 }
