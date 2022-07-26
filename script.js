@@ -46,6 +46,7 @@ function clear() {
   lastOperationScreen.textContent = "";
   firstOperand = "";
   secondOperand = "";
+  secondOperandMemory = "";
   currentOperation = null;
 }
 
@@ -78,7 +79,10 @@ function deleteNumber() {
 }
 
 function setOperation(operator) {
-  if (currentOperation !== null && secondOperandMemory !== "") evaluate();
+  // reset second operand memory and current operation when operator is clicked
+  secondOperandMemory = "";
+  currentOperation = null;
+  if (currentOperation !== null) evaluate();
   firstOperand = currentOperationScreen.textContent;
   currentOperation = operator;
   lastOperationScreen.textContent = `${firstOperand} ${currentOperation}`;
@@ -86,25 +90,35 @@ function setOperation(operator) {
 }
 
 function evaluate() {
+  // if there is no operation selected and enter is pressed, don't do anything
   if (currentOperation === null || shouldResetScreen) return;
+
+  // division by zero
   if (currentOperation === "÷" && currentOperationScreen.textContent === "0") {
     alert("You can't divide by 0!");
     return;
   }
-  // load secondOperand for recursive calculations
+
+  // get second operand from current operation screen
+  secondOperand = currentOperationScreen.textContent;
+
+  // if enter is pressed again, recursively evaluate previous operation
   if (
-    currentOperation !== null &&
-    lastOperationScreen.textContent.includes("=")
-  )
+    lastOperationScreen.textContent.includes("=") &&
+    secondOperandMemory !== ""
+  ) {
+    firstOperand = secondOperand;
     secondOperand = secondOperandMemory;
-  else secondOperand = currentOperationScreen.textContent;
+  }
+
+  // operate on entered values
   currentOperationScreen.textContent = roundResult(
     operate(currentOperation, firstOperand, secondOperand)
   );
-  lastOperationScreen.textContent = `${firstOperand} ${currentOperation} ${secondOperand} =`;
-  // remember second operator for recursive operations
-  firstOperand = currentOperationScreen.textContent;
+  // get second operand from current operation screen
   secondOperandMemory = secondOperand;
+  // send previous equation to last operation screen
+  lastOperationScreen.textContent = `${firstOperand} ${currentOperation} ${secondOperand} =`;
 }
 
 function roundResult(number) {
@@ -167,5 +181,5 @@ function convertOperator(keyboardOperator) {
   if (keyboardOperator === "-") return "-";
   // parse "x" for multiplication
   if (keyboardOperator === "*" || keyboardOperator === "x") return "×";
-  if (keyboardOperator === "/") return "+";
+  if (keyboardOperator === "/") return "÷";
 }
