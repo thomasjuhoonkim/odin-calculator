@@ -13,5 +13,6 @@ This calculator project was made to compile all HTML/CSS/JavaScript knowledge ga
 - I improved my coding practices, writing neater code, isolating specific functionalities, and writing more functions for task delegation within the program.
 - I made better use of HTML attributes to isolate operator buttons vs number buttons.
 
-Thomas Kim
-thomasjuhoonkim@gmail.com
+Thomas Kim \
+GitHub: thomasjuhoonkim \
+Email: thomasjuhoonkim@gmail.com
