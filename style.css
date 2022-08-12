@@ -30,7 +30,7 @@ html {
 }
 
 body {
-  font-family: "Roboto";
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
   color: var(--font);
   background-color: var(--background);
   line-height: 1.6;
