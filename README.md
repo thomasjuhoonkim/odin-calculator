@@ -1,5 +1,7 @@
 # The Odin Project - Calculator
 
+**[Check out the calculator here!](https://thomasjuhoonkim.github.io/odin-calculator/)**
+
 **Motivation** \
 This calculator project was made to compile all HTML/CSS/JavaScript knowledge gathered in The Odin Project - Foundations.
 
